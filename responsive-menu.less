@@ -1,0 +1,199 @@
+// General
+@navbarBgColor:             #444;
+@navbarItemColor:           #eee;
+@navbarItemHoverColor:      lime;
+@navbarItemHoverBgColor:    #666;
+
+// Mobile button
+@navbarMobileBorderColor:               #ddd;
+@navbarMobileItemBorderColor:           #eee;
+@navbarMobileItemHoverBorderColor:      lime;
+
+// The menu button
+@navbarMenuButtonColor:         #333;
+@navbarMenuButtonBgColor:       transparent;
+@navbarMenuButtonBorderColor:   #999;
+
+// The menu button hover
+@navbarMenuButtonHoverColor:         lime;
+@navbarMenuButtonHoverBgColor:       #eee;
+@navbarMenuButtonHoverBorderColor:   #333;
+
+// The menu clicked
+@navbarMenuButtonClickedBorderColor:    lime;
+@navbarMenuButtonClickedColor:          #666;
+@navbarMenuButtonClickedBgColor:        #eee;
+
+
+
+
+.navbar {
+
+    // Clear the style for ul
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    /**
+     * Meny layout for the small buttonized menu.
+     */
+    .small {
+
+        display: none;
+
+        a {
+            display: inline-block;
+            color: @navbarMenuButtonColor;
+            background-color: @navbarMenuButtonBgColor;
+            border: 1px solid @navbarMenuButtonBorderColor;
+            border-radius: 4px;
+            padding: 4px 6px;
+            outline: none;
+
+            &:hover {
+                color: @navbarMenuButtonHoverColor;
+                background-color: @navbarMenuButtonHoverBgColor;
+                border: 1px solid @navbarMenuButtonHoverBorderColor;
+            }
+
+            &.clicked {
+                border-color: @navbarMenuButtonClickedBorderColor;
+                color: @navbarMenuButtonClickedColor;
+                background-color: @navbarMenuButtonClickedBgColor;
+            }
+        }
+    }
+
+    .visible {
+        display: none;
+    }
+
+
+
+
+    /**
+     * Standard meny layout, valid for any subtype.
+     */
+    .default {
+        
+        background-color: @navbarBgColor;
+        
+        li {
+            color: @navbarItemColor;
+            display: inline-block;
+            
+            &:hover {
+                color: @navbarItemHoverColor;
+                background-color: @navbarItemHoverBgColor;
+            } 
+        }
+
+        a {
+            display: inherit;
+            text-decoration: none;
+            color: inherit;
+            white-space: nowrap;
+            padding: 1em;
+        }
+    }
+
+
+
+    /**
+     * Menu layout for the desktop variant, usually full width of browser.
+     */
+    .desktop {
+
+        li {
+            &:hover {
+            } 
+        }
+
+        a {
+        }
+    }
+
+
+
+    /**
+     * Menu layout for the mobile variant, usually for mobile screens.
+     */
+    .mobile {
+        width: 50%;
+        border: 1px solid @navbarMobileBorderColor;
+        
+        li {
+            display: block;
+            border: 1px solid @navbarMobileItemBorderColor;
+
+            &:hover {
+                border-color: @navbarMobileItemHoverBorderColor;
+            } 
+        }
+
+        a {
+        }
+
+
+        // With submenu below
+        li.selected-parent, 
+        li.selected {
+          color: #22f; 
+          border-color: #22f;
+        }
+
+        ul ul {
+          background-color: #fff; 
+          padding: 8px; 
+          position: absolute; 
+          left: -9999px; 
+          z-index: 2;
+        }
+         
+        li li {
+          border-top: none;  
+          border-left: 4px solid transparent;  
+        }
+
+        li:hover ul {
+          left: 0;
+        }
+         
+        li li:hover {
+          color: #666; 
+          border-color: #666;
+        }
+
+        li li.selected {
+          color: #22f; 
+          border-color: #22f;
+        }
+    }
+}
+
+
+
+/**
+ * Example on media queries
+ */
+@media screen and (max-width: 640px) {
+    .navbar .small {
+        display: block;
+    }
+    
+    .navbar .default {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .navbar .small {
+        display: none;
+    }
+    
+    .navbar .default {
+        display: block !important; // To override settings from js
+    }
+}
