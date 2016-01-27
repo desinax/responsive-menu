@@ -4,6 +4,11 @@
 @navbarItemHoverColor:      lime;
 @navbarItemHoverBgColor:    #666;
 
+// Menu item current/selected
+@navbarItemSelectedColor:       darken(lime, 10%); 
+@navbarItemSelectedBgColor:     #666; 
+@navbarItemSelectedBorderColor: darken(lime, 10%);
+
 // Mobile button
 @navbarMobileBorderColor:               #ddd;
 @navbarMobileItemBorderColor:           #eee;
@@ -24,10 +29,14 @@
 @navbarMenuButtonClickedColor:          #666;
 @navbarMenuButtonClickedBgColor:        #eee;
 
+// Submenu
+@submenuZIndex:             10;
+@submenuBgColor:            @navbarBgColor;
+@submenuMinWidth:           10em;
+@submenuItemBorderColor:    #eee;
 
 
-
-.navbar {
+.rm-navbar {
 
     // Clear the style for ul
     ul {
@@ -35,140 +44,36 @@
         margin: 0;
         padding: 0;
     }
-
-    /**
-     * Meny layout for the small buttonized menu.
-     */
-    .small {
-
-        display: none;
-
-        a {
-            display: inline-block;
-            color: @navbarMenuButtonColor;
-            background-color: @navbarMenuButtonBgColor;
-            border: 1px solid @navbarMenuButtonBorderColor;
-            border-radius: 4px;
-            padding: 4px 6px;
-            outline: none;
-
-            &:hover {
-                color: @navbarMenuButtonHoverColor;
-                background-color: @navbarMenuButtonHoverBgColor;
-                border: 1px solid @navbarMenuButtonHoverBorderColor;
-            }
-
-            &.clicked {
-                border-color: @navbarMenuButtonClickedBorderColor;
-                color: @navbarMenuButtonClickedColor;
-                background-color: @navbarMenuButtonClickedBgColor;
-            }
-        }
-    }
-
-    .visible {
-        display: none;
-    }
+}
 
 
 
+/**
+ * Meny layout for the small buttonized menu visble on smaller screens.
+ */
+.rm-small {
 
-    /**
-     * Standard meny layout, valid for any subtype.
-     */
-    .default {
-        
-        background-color: @navbarBgColor;
-        
-        li {
-            color: @navbarItemColor;
-            display: inline-block;
-            
-            &:hover {
-                color: @navbarItemHoverColor;
-                background-color: @navbarItemHoverBgColor;
-            } 
+    display: none;
+
+    a {
+        display: inline-block;
+        color: @navbarMenuButtonColor;
+        background-color: @navbarMenuButtonBgColor;
+        border: 1px solid @navbarMenuButtonBorderColor;
+        border-radius: 4px;
+        padding: 4px 6px;
+        outline: none;
+
+        &:hover {
+            color: @navbarMenuButtonHoverColor;
+            background-color: @navbarMenuButtonHoverBgColor;
+            border: 1px solid @navbarMenuButtonHoverBorderColor;
         }
 
-        a {
-            display: inherit;
-            text-decoration: none;
-            color: inherit;
-            white-space: nowrap;
-            padding: 1em;
-        }
-    }
-
-
-
-    /**
-     * Menu layout for the desktop variant, usually full width of browser.
-     */
-    .desktop {
-
-        li {
-            &:hover {
-            } 
-        }
-
-        a {
-        }
-    }
-
-
-
-    /**
-     * Menu layout for the mobile variant, usually for mobile screens.
-     */
-    .mobile {
-        width: 50%;
-        border: 1px solid @navbarMobileBorderColor;
-        
-        li {
-            display: block;
-            border: 1px solid @navbarMobileItemBorderColor;
-
-            &:hover {
-                border-color: @navbarMobileItemHoverBorderColor;
-            } 
-        }
-
-        a {
-        }
-
-
-        // With submenu below
-        li.selected-parent, 
-        li.selected {
-          color: #22f; 
-          border-color: #22f;
-        }
-
-        ul ul {
-          background-color: #fff; 
-          padding: 8px; 
-          position: absolute; 
-          left: -9999px; 
-          z-index: 2;
-        }
-         
-        li li {
-          border-top: none;  
-          border-left: 4px solid transparent;  
-        }
-
-        li:hover ul {
-          left: 0;
-        }
-         
-        li li:hover {
-          color: #666; 
-          border-color: #666;
-        }
-
-        li li.selected {
-          color: #22f; 
-          border-color: #22f;
+        &.clicked {
+            border-color: @navbarMenuButtonClickedBorderColor;
+            color: @navbarMenuButtonClickedColor;
+            background-color: @navbarMenuButtonClickedBgColor;
         }
     }
 }
@@ -176,24 +81,176 @@
 
 
 /**
+ * Standard meny layout, valid for any subtype.
+ */
+.rm-default {
+    background-color: @navbarBgColor;
+    
+    li {
+        position: relative; //?
+        color: @navbarItemColor;
+        display: inline-block;
+
+        // Hover over a menu item
+        &:hover {
+            color: @navbarItemHoverColor;
+            background-color: @navbarItemHoverBgColor;
+        }
+
+        // Menu item for submenu
+        li {
+            display: block;
+            min-width: @submenuMinWidth;
+        }
+    }
+
+    // The link of the menu item
+    a {
+        display: inherit;
+        text-decoration: none;
+        color: inherit;
+        white-space: nowrap;
+        padding: 1em;
+        outline: none;
+    }
+
+     // The base for the submenu
+     ul {
+        position: absolute; 
+        z-index: @submenuZIndex;
+        left: -9999px; 
+        background-color: @submenuBgColor; 
+        padding: 8px; 
+
+        // Display the submenu, class to use from javascript
+        &.rm-show-submenu {
+            left: 0;
+        }
+
+        li {
+            border-left: 4px solid transparent;  
+         }
+     }
+}
+
+
+
+/**
+ * Menu layout for the desktop variant, usually full width of browser.
+ */
+.rm-desktop {
+
+    li {
+        // Selected/current menu item
+        &.selected-parent,  // For submenu
+        &.selected {
+            color: @navbarItemSelectedColor; 
+            background-color: @navbarItemSelectedBgColor; 
+            border-color: @navbarItemSelectedBorderColor;
+        }
+
+        // Hover over a menu item
+        &:hover {
+            color: @navbarItemHoverColor;
+            background-color: @navbarItemHoverBgColor;
+
+            // To display submenu
+            ul {
+              left: 0;
+            }
+        } 
+    }
+}
+
+
+
+/**
+ * Menu layout for the mobile variant, usually for mobile screens.
+ */
+.rm-mobile {
+    width: 50%;
+    border: 1px solid @navbarMobileBorderColor;
+    
+    li {
+        display: block;
+        border: 1px solid @navbarMobileItemBorderColor;
+
+        // All items of the menu
+        a:before {
+            font-family: FontAwesome;
+            content: "\f0da";
+            float: right;
+        }
+
+        // Header of submenu is closed
+        &.rm-submenu > a:before {
+            content: "\f0d7";
+        }
+
+        // Header of submenu is opened
+        &.rm-submenu-open > a:before {
+            content: "\f0d8";
+        }
+
+        // Display the submenu
+        &.rm-submenu-open > ul {
+            position: relative;
+            left: 0;
+        }
+
+        // Menu item for submenu
+        li {
+            border: none;
+            border-top: 1px solid @submenuItemBorderColor;
+        }
+
+        // Hover over a menu item
+        &:hover {
+            border-color: @navbarMobileItemHoverBorderColor;
+        } 
+    }
+}
+
+
+
+// To show submenu in mobile version through javascript.
+/*ul.rm-show-submenu {
+    position: relative;
+    left: 0;
+}*/
+
+
+/*
+
+.rm-navbar {
+
+    .visible {
+        display: none;
+    }
+}
+*/
+
+
+
+/**
  * Example on media queries
  */
 @media screen and (max-width: 640px) {
-    .navbar .small {
+    .rm-small {
         display: block;
     }
     
-    .navbar .default {
+    .rm-default {
         display: none;
     }
 }
 
 @media screen and (min-width: 640px) {
-    .navbar .small {
+    .rm-small {
         display: none;
     }
     
-    .navbar .default {
-        display: block !important; // To override settings from js
+    .rm-default {
+        display: block !important; // To override settings from js, check needed
     }
 }
