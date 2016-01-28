@@ -9,7 +9,7 @@
 .rm-small {
   display: none;
 }
-.rm-small a {
+a.rm-button {
   display: inline-block;
   color: #333;
   background-color: transparent;
@@ -18,12 +18,12 @@
   padding: 4px 6px;
   outline: none;
 }
-.rm-small a:hover {
+a.rm-button:hover {
   color: lime;
   background-color: #eee;
   border: 1px solid #333;
 }
-.rm-small a.clicked {
+a.rm-button.rm-clicked {
   border-color: lime;
   color: #666;
   background-color: #eee;
@@ -71,8 +71,8 @@
 /**
  * Menu layout for the desktop variant, usually full width of browser.
  */
-.rm-desktop li.selected-parent,
-.rm-desktop li.selected {
+.rm-desktop li.rm-selected-parent,
+.rm-desktop li.rm-selected {
   color: #00cc00;
   background-color: #666;
   border-color: #00cc00;
@@ -117,23 +117,10 @@
 .rm-mobile li:hover {
   border-color: lime;
 }
-/*ul.rm-show-submenu {
-    position: relative;
-    left: 0;
-}*/
-/*
-
-.rm-navbar {
-
-    .visible {
-        display: none;
-    }
-}
-*/
 /**
  * Example on media queries
  */
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 680px) {
   .rm-small {
     display: block;
   }
@@ -141,7 +128,7 @@
     display: none;
   }
 }
-@media screen and (min-width: 640px) {
+@media screen and (min-width: 680px) {
   .rm-small {
     display: none;
   }

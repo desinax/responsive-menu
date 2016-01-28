@@ -54,27 +54,27 @@
 .rm-small {
 
     display: none;
+}
 
-    a {
-        display: inline-block;
-        color: @navbarMenuButtonColor;
-        background-color: @navbarMenuButtonBgColor;
-        border: 1px solid @navbarMenuButtonBorderColor;
-        border-radius: 4px;
-        padding: 4px 6px;
-        outline: none;
+a.rm-button {
+    display: inline-block;
+    color: @navbarMenuButtonColor;
+    background-color: @navbarMenuButtonBgColor;
+    border: 1px solid @navbarMenuButtonBorderColor;
+    border-radius: 4px;
+    padding: 4px 6px;
+    outline: none;
 
-        &:hover {
-            color: @navbarMenuButtonHoverColor;
-            background-color: @navbarMenuButtonHoverBgColor;
-            border: 1px solid @navbarMenuButtonHoverBorderColor;
-        }
+    &:hover {
+        color: @navbarMenuButtonHoverColor;
+        background-color: @navbarMenuButtonHoverBgColor;
+        border: 1px solid @navbarMenuButtonHoverBorderColor;
+    }
 
-        &.clicked {
-            border-color: @navbarMenuButtonClickedBorderColor;
-            color: @navbarMenuButtonClickedColor;
-            background-color: @navbarMenuButtonClickedBgColor;
-        }
+    &.rm-clicked {
+        border-color: @navbarMenuButtonClickedBorderColor;
+        color: @navbarMenuButtonClickedColor;
+        background-color: @navbarMenuButtonClickedBgColor;
     }
 }
 
@@ -142,8 +142,8 @@
 
     li {
         // Selected/current menu item
-        &.selected-parent,  // For submenu
-        &.selected {
+        &.rm-selected-parent,  // For submenu
+        &.rm-selected {
             color: @navbarItemSelectedColor; 
             background-color: @navbarItemSelectedBgColor; 
             border-color: @navbarItemSelectedBorderColor;
@@ -213,29 +213,10 @@
 
 
 
-// To show submenu in mobile version through javascript.
-/*ul.rm-show-submenu {
-    position: relative;
-    left: 0;
-}*/
-
-
-/*
-
-.rm-navbar {
-
-    .visible {
-        display: none;
-    }
-}
-*/
-
-
-
 /**
  * Example on media queries
  */
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 680px) {
     .rm-small {
         display: block;
     }
@@ -245,7 +226,7 @@
     }
 }
 
-@media screen and (min-width: 640px) {
+@media screen and (min-width: 680px) {
     .rm-small {
         display: none;
     }

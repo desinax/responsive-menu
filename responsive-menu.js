@@ -5,8 +5,10 @@
     "use strict";
 
     var menuButton = document.getElementById("rm-menu-button");
-    var menu = document.getElementById("large");
+    var menu = document.querySelector(".rm-default");
     var submenus = document.getElementsByClassName("rm-submenu");
+    var submenuswp = document.getElementsByClassName("sub-menu");
+
 
 
     /**
@@ -42,8 +44,16 @@
         console.log("found submenu");
     });
 
+    Array.prototype.filter.call(submenuswp, function(element) {
+        element.parentNode.addEventListener("click", showSubmenu);
+        console.log("found submenuwp");
+    });
 
 
+
+    /**
+     *
+     */
     menuButton.addEventListener("click", function(event) {
 
         var style = window.getComputedStyle(menu);
@@ -53,13 +63,13 @@
         if (style.display === "none") {
             menu.classList.toggle("rm-mobile");
             menu.classList.toggle("rm-desktop");
-            menuButton.classList.toggle("clicked");
+            menuButton.classList.toggle("rm-clicked");
             menu.style.display = "block";
         } else {
             menu.style.display = "none";
             menu.classList.toggle("rm-mobile");
             menu.classList.toggle("rm-desktop");
-            menuButton.classList.toggle("clicked");
+            menuButton.classList.toggle("rm-clicked");
         }
 
         event.preventDefault();
@@ -73,7 +83,7 @@
         menu.style.display = "";
         menu.classList.remove("rm-mobile");
         menu.classList.add("rm-desktop");
-        menuButton.classList.remove("clicked");
+        menuButton.classList.remove("rm-clicked");
         event.preventDefault();
     };
 
