@@ -14,7 +14,7 @@
     /**
      * Show the submenu
      */
-    var showSubmenu = function(event) {
+    var showSubmenu = function() {
         console.log("Show submenu");
 
         if (this.parentNode.classList.contains("rm-desktop")) {
