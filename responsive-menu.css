@@ -57,7 +57,7 @@ a.rm-button.rm-clicked {
 }
 .rm-default ul {
   position: absolute;
-  z-index: 10;
+  z-index: 9999;
   left: -9999px;
   background-color: #444;
   padding: 8px;
