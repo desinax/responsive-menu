@@ -29,8 +29,14 @@ LESS_LINT_OPTIONS 		= --lint
 
 
 #
-# Tool to minimize javascript code
+# Tool to check and minimize javascript code
 #
+JS_CODESTYLE 			= jscs
+JS_CODESTYLE_OPTIONS 	=
+
+JS_LINT 				= jshint
+JS_LINT_OPTIONS 		=
+
 JS_MINIFY 			= uglifyjs
 JS_MINIFY_OPTIONS 	= --mangle --compress --screw-ie8 --comments
 
@@ -54,7 +60,7 @@ all: test build
 
 
 # target: test - Do all tests
-test: jscs jshint less-lint html-lint
+test: js-cs js-lint less-lint html-lint
 
 
 
@@ -112,27 +118,33 @@ less-lint: $(LESS_FILES)
 #
 # JavaScript
 #
+.PHONY: js-cs js-lint 
 
 # target: js-minify - Minify JavaScript files to min.js
 js-minify: $(JS_FILES) $(JS_MINIFIED)
 
 %.min.js: %.js
 	@echo '==> Minifying $<'
-	$(JS_MINIFY) $(JS_MINIFY_OPTIONS) --output $@  $<
+	$(JS_MINIFY) $(JS_MINIFY_OPTIONS) --output $@ $<
 
 
 
-# target: jscs - Check codestyle in javascript files
-jscs: $(JS_FILES)
-	@echo '==> Check JavaScript codestyle'
-	jscs $(JS_FILES)
+# target: js-cs - Check codestyle in javascript files
+js-cs:
+	@for file in $(JS_FILES); do \
+		echo "==> JavaScript codestyle $$file"; \
+		$(JS_CODESTYLE) $(JS_CODESTYLE_OPTIONS) $$file; \
+	done
 
 
 
-# target: jshint - Lint javascript files
-jshint: $(JS_FILES)
-	@echo '==> Check JavaScript linter'
-	jshint $(JS_FILES)
+# target: js-lint - Lint javascript files
+js-lint:
+	@for file in $(JS_FILES); do \
+		echo "==> JavaScript lint $$file"; \
+		$(JS_LINT) $(JS_LINT_OPTIONS) $$file; \
+	done
+	@echo
 
 
 
@@ -146,5 +158,5 @@ jshint: $(JS_FILES)
 html-lint:
 	@for file in $(HTML_FILES); do \
 		echo -n "==> HTML linting $$file"; \
-		$(HTML_LINT) $(HTML_LINT_OPTIONS) $@ | grep -v "Config loaded: "; \
+		$(HTML_LINT) $(HTML_LINT_OPTIONS) $$file | grep -v "Config loaded: "; \
 	done

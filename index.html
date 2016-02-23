@@ -1,35 +1,44 @@
 <!doctype html>
 <html lang="en">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="responsive-menu.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 <body>
 
-    <div class="rm-navbar">
-      
-        <ul class="rm-small">
-            <li><a id="rm-menu-button" class="rm-button" href="#"><i class="fa fa-bars fa-2x"></i></a></li>
-        </ul>
+    <div style="height: 100px; background-color: #ddd;">
+        
+        <div class="rm-navbar">
           
-        <ul class="rm-default rm-desktop">
-            <li><a href='index.html' title='Some title 1'>Home</a></li>
+            <ul class="rm-small">
+                <li><a id="rm-menu-button" class="rm-button" href="#"><i class="fa fa-bars fa-2x"></i></a></li>
+            </ul>
+              
+            <ul class="rm-default rm-desktop">
+                <li><a href="index.html" title="Some title 1">Home</a></li>
 
-            <li class='rm-submenu rm-selected-parent' ><a href='#' title='Some title 2'>Test with submenu</a>
-                
-                <ul>
-                    <li class='rm-selected'><a href='item1.html' title='Some item 1'>Item 1</a></li>
-                    <li><a href='item2.html' title='Some item 2'>Item 2</a></li>
-                </ul>
+                <li class="rm-submenu rm-selected-parent" ><a href="#" title="Some title 2">Test with submenu</a>
+                    
+                    <ul>
+                        <li class="rm-selected"><a href="item1.html" title="Some item 1">Item 1</a></li>
+                        <li><a href="item2.html" title="Some item 2">Item 2</a></li>
+                    </ul>
 
-            </li>
+                </li>
 
-            <li><a href='about.html' title='Some title 3'>About</a></li>
-        </ul>
+                <li><a href="about.html" title="Some title 3">About</a></li>
+            </ul>
 
-    </div>
+        </div>
+        
+    </div> <!-- header -->
+    
+    <main style="height: 10em; background-color: #ccc;">
+    </main>
 
-<script src="responsive-menu.js"></script>
+    <script src="responsive-menu.js"></script>
+    <script src="detect-swipe-event.js"></script>
 
 </body>
 </html>

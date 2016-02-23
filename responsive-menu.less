@@ -1,3 +1,7 @@
+/**
+ * Style for responsive menu
+ */
+
 // General
 @navbarBgColor:             #444;
 @navbarItemColor:           #eee;
@@ -38,6 +42,8 @@
 
 .rm-navbar {
 
+    position: relative;
+
     // Clear the style for ul
     ul {
         list-style: none;
@@ -54,6 +60,7 @@
 .rm-small {
 
     display: none;
+    float: right;
 }
 
 a.rm-button {
@@ -65,7 +72,8 @@ a.rm-button {
     padding: 4px 6px;
     outline: none;
 
-    &:hover {
+    //&:hover, // Avoid hover, click, double-tap behaviour
+    &:active {
         color: @navbarMenuButtonHoverColor;
         background-color: @navbarMenuButtonHoverBgColor;
         border: 1px solid @navbarMenuButtonHoverBorderColor;
@@ -168,8 +176,9 @@ a.rm-button {
  * Menu layout for the mobile variant, usually for mobile screens.
  */
 .rm-mobile {
-    width: 50%;
+    width: 100%;
     border: 1px solid @navbarMobileBorderColor;
+    float: right;
     
     li {
         display: block;
@@ -183,6 +192,7 @@ a.rm-button {
         }
 
         // Header of submenu is closed
+        //&.sub-menu, // For WordPress menu generating
         &.rm-submenu > a:before {
             content: "\f0d7";
         }
