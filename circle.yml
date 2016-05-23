@@ -1,6 +1,6 @@
 machine:
-    # Use default version of node
-    #node:
+    node:
+        # Use default version of node
         #version: 4.4.4
 
 
