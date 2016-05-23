@@ -5,14 +5,14 @@ machine:
 
 
 
-dependencies:
+#dependencies:
     #override:
         # Prepare for automated tests
         #- make automated-tests-prepare
 
 
 
-test:
+#test:
     #override:
         # Run automated tests
         #- make automated-tests-check
