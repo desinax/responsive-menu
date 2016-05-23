@@ -38,13 +38,13 @@
      */
     Array.prototype.filter.call(submenus, function(element) {
         element.addEventListener("click", showSubmenu);
-        console.log("found submenu");
+        //console.log("found submenu");
     });
 
     // To support WordPress menus
     Array.prototype.filter.call(submenuswp, function(element) {
         element.parentNode.addEventListener("click", showSubmenu);
-        console.log("found submenuwp");
+        //console.log("found submenuwp");
     });
 
 
@@ -56,7 +56,7 @@
 
         var style = window.getComputedStyle(menu);
 
-        console.log("Click: " + style.display);
+        //console.log("Click: " + style.display);
 
         if (style.display === "none") {
             // Display the menu
@@ -82,7 +82,7 @@
      *
      */
     var clearMenu = function (event) {
-        console.log("Clear menu");
+        //console.log("Clear menu");
         menu.style.display = "";
         menu.classList.remove("rm-mobile");
         menu.classList.add("rm-desktop");

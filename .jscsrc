@@ -15,7 +15,6 @@
 		"beforeAlternate": true
 	},
 
-	"esnext": true,
 	"disallowTrailingWhitespace": true,
 
 	"requireSpacesInsideObjectBrackets": null,

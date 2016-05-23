@@ -79,7 +79,9 @@ a.rm-button.rm-clicked {
  * Menu layout for the desktop variant, usually full width of browser.
  */
 .rm-desktop li.rm-selected-parent,
-.rm-desktop li.rm-selected {
+.rm-desktop li.rm-selected,
+.rm-desktop li.selected-parent,
+.rm-desktop li.selected {
   color: #00cc00;
   background-color: #666;
   border-color: #00cc00;
