@@ -78,6 +78,9 @@ a.rm-button.rm-clicked {
 /**
  * Menu layout for the desktop variant, usually full width of browser.
  */
+.rm-desktop {
+  float: right;
+}
 .rm-desktop li.rm-selected-parent,
 .rm-desktop li.rm-selected,
 .rm-desktop li.selected-parent,
@@ -143,6 +146,6 @@ a.rm-button.rm-clicked {
     display: none;
   }
   .rm-default {
-    display: block !important;
+    /*display: block !important;*/
   }
 }
