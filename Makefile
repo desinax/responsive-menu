@@ -119,7 +119,7 @@ less-compile: $(LESS_FILES) $(LESS_COMPILED)
 # target: less-minify - Minify LESS files to min.css
 less-minify: $(LESS_FILES) $(LESS_MINIFIED)
 
-%.min.css: %.less
+%.min.css: %.css
 	@echo '==> LESS minifying $<'
 	$(LESS_MINIFY) $(LESS_MINIFY_OPTIONS) $< $@
 
@@ -137,6 +137,7 @@ less-lint: $(LESS_FILES)
 # JavaScript
 #
 .PHONY: js-cs js-lint 
+	
 
 # target: js-minify - Minify JavaScript files to min.js
 js-minify: $(JS_FILES) $(JS_MINIFIED)
