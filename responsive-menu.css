@@ -1,6 +1,9 @@
 /**
  * Style for responsive menu
  */
+/**
+ * Outer wrapper for menu
+ */
 .rm-navbar {
   position: relative;
 }
@@ -10,7 +13,7 @@
   padding: 0;
 }
 /**
- * Meny layout for the small buttonized menu visble on smaller screens.
+ * Meny layout for the small buttonized menu.
  */
 .rm-small {
   display: none;
@@ -18,37 +21,39 @@
 }
 a.rm-button {
   display: inline-block;
-  color: #333;
+  color: inherit;
   background-color: transparent;
-  border: 1px solid #999;
-  border-radius: 4px;
-  padding: 4px 6px;
   outline: none;
 }
 a.rm-button:active {
-  color: lime;
-  background-color: #eee;
-  border: 1px solid #333;
+  color: inherit;
+  background-color: transparent;
+}
+a.rm-button .rm-button-face-1 {
+  position: absolute;
+  transition: color 0.10s ease;
+}
+a.rm-button .rm-button-face-2 {
+  position: relative;
+  color: transparent;
+  transition: color 0.10s ease;
 }
 a.rm-button.rm-clicked {
-  border-color: lime;
-  color: #666;
-  background-color: #eee;
+  color: #9FB129;
+  background-color: transparent;
+}
+a.rm-button.rm-clicked .rm-button-face-1 {
+  color: transparent;
+}
+a.rm-button.rm-clicked .rm-button-face-2 {
+  z-index: 2;
+  color: inherit;
 }
 /**
  * Standard meny layout, valid for any subtype.
  */
-.rm-default {
-  background-color: #444;
-}
 .rm-default li {
-  position: relative;
-  color: #eee;
   display: inline-block;
-}
-.rm-default li:hover {
-  color: lime;
-  background-color: #666;
 }
 .rm-default li li {
   display: block;
@@ -57,7 +62,6 @@ a.rm-button.rm-clicked {
 .rm-default a {
   display: inherit;
   text-decoration: none;
-  color: inherit;
   white-space: nowrap;
   padding: 1em;
   outline: none;
@@ -67,70 +71,107 @@ a.rm-button.rm-clicked {
   z-index: 9999;
   left: -9999px;
   background-color: #444;
-  padding: 8px;
+  padding-left: 8px;
 }
 .rm-default ul.rm-show-submenu {
   left: 0;
 }
 .rm-default ul li {
-  border-left: 4px solid transparent;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
 }
 /**
  * Menu layout for the desktop variant, usually full width of browser.
  */
-.rm-desktop {
-  float: right;
+.rm-desktop li {
+  position: relative;
 }
-.rm-desktop li.rm-selected-parent,
-.rm-desktop li.rm-selected,
-.rm-desktop li.selected-parent,
-.rm-desktop li.selected {
-  color: #00cc00;
-  background-color: #666;
-  border-color: #00cc00;
-}
-.rm-desktop li:hover {
-  color: lime;
-  background-color: #666;
-}
-.rm-desktop li:hover ul {
+.rm-desktop li:hover > ul {
   left: 0;
+}
+.rm-desktop li:hover > ul.rm-submenu-level-1 {
+  left: auto;
+  left: 30%;
 }
 /**
  * Menu layout for the mobile variant, usually for mobile screens.
  */
 .rm-mobile {
   width: 100%;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  float: right;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
+  background-color: #444;
+  color: #fff;
+}
+.rm-mobile a {
+  color: inherit;
 }
 .rm-mobile li {
   display: block;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-}
-.rm-mobile li a:before {
-  font-family: FontAwesome;
-  content: "\f0da";
-  float: right;
-}
-.rm-mobile li.rm-submenu > a:before {
-  content: "\f0d7";
-}
-.rm-mobile li.rm-submenu-open > a:before {
-  content: "\f0d8";
+  box-shadow: 0px 0px 1px rgba(255, 255, 255, 0.4);
+  /*        // Header of submenu is closed
+        //&.sub-menu, // For WordPress menu generating
+        &.rm-submenu > a:before {
+            content: "\f0d7";
+        }
+
+        // Header of submenu is opened
+        &.rm-submenu-open > a:before {
+            content: "\f0d8";
+        }
+*/
 }
 .rm-mobile li.rm-submenu-open > ul {
   position: relative;
   left: 0;
 }
-.rm-mobile li li {
-  border: none;
-  border-top: 1px solid #eee;
+/**
+ * Menu layout for the max variant, for mobile screens and complete menues.
+ * Swipe from right by default.
+ */
+.rm-max .rm-small {
+  display: block;
 }
-.rm-mobile li:hover {
-  border-color: lime;
+.rm-max .rm-mobile {
+  transition: all 0.15s linear;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  transform: translateX(100%);
+  width: 500px;
+  max-width: 500px;
+  height: 500px;
+  overflow-y: auto;
+}
+.rm-max .rm-mobile.rm-clicked {
+  transform: translateX(0);
+}
+.rm-max .rm-mobile a:hover {
+  text-decoration: underline;
+}
+.rm-max .rm-mobile .rm-submenu-button {
+  font-family: FontAwesome;
+  float: right;
+  box-shadow: 0px 0px 1px rgba(255, 255, 255, 0.4);
+  background-color: #444;
+  padding: 0px 16px;
+  margin-right: 8px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+.rm-max .rm-mobile .rm-submenu-button:after {
+  content: "\f0d7";
+}
+.rm-max .rm-mobile .rm-submenu-button:hover {
+  text-decoration: none;
+  background-color: #999;
+}
+.rm-max .rm-mobile .rm-submenu-open > .rm-submenu-button:after {
+  content: "\f0d8";
+}
+.rm-max.rm-swipe-left .rm-mobile {
+  left: 0;
+}
+.rm-max.rm-swipe-right .rm-mobile {
+  right: 0;
 }
 /**
  * Example on media queries
@@ -139,15 +180,12 @@ a.rm-button.rm-clicked {
   .rm-small {
     display: block;
   }
-  .rm-default {
+  .rm-desktop {
     display: none;
   }
 }
 @media screen and (min-width: 680px) {
   .rm-small {
     display: none;
-  }
-  .rm-default {
-    /*display: block !important;*/
   }
 }

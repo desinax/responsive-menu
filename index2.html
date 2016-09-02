@@ -14,37 +14,70 @@
     <div style="height: 100px; background-color: #ddd;">
         <span class="header"><b style="font-size: 2em;">SiteTitle</b></span>
 
+        <!-- menu wrapper -->
         <div class="rm-navbar">
-          
+
+            <!-- memu click button -->
             <div class="rm-small-wrapper">
                 <ul class="rm-small">
-                    <li><a id="rm-menu-button" class="rm-button" href="#"><i class="fa fa-bars fa-2x"></i></a></li>
+                    <li><a id="rm-menu-button" class="rm-button" href="#">
+                        <i class="fa fa-bars fa-2x rm-button-face-1"></i>
+                        <i class="fa fa-times fa-2x rm-button-face-2"></i>
+                    </a></li>
                 </ul>
             </div>
 
+            <!-- main menu -->
             <ul class="rm-default rm-desktop">
+
+                <!-- menu item -->
                 <li><a href="index2.html" title="Some title 1">Home</a></li>
 
-                <li class="rm-submenu rm-selected-parent" ><a href="#" title="Some title 2">Test with submenu</a>
-                    
+                <!-- menu item with submenu -->
+                <li class="rm-submenu" ><a href="#" title="Some title 2">Test with submenu</a>
+
+                    <!-- sub item -->
                     <ul>
-                        <li class="rm-selected"><a href="index2.html" title="Some item 1">Item 1</a></li>
+                        <!-- menu item -->
+                        <li><a href="index2.html" title="Some item 1">Item 1</a></li>
+
+                        <!-- menu item with submenu -->
+                        <li class="rm-submenu" ><a href="#" title="Some title 2">Test with nested submenu</a>
+
+                            <!-- sub item -->
+                            <ul class="rm-submenu-level-1">
+                                <!-- menu item -->
+                                <li><a href="index2.html" title="Some item 1">Item 1</a></li>
+
+                                <!-- menu item -->
+                                <li><a href="index2.html" title="Some item 2">Item 2</a></li>
+
+                                <!-- menu item -->
+                                <li><a href="index2.html" title="Some item 2">Item 3</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- menu item -->
                         <li><a href="index2.html" title="Some item 2">Item 2</a></li>
                     </ul>
 
                 </li>
 
+                <!-- menu item -->
                 <li><a href="index2.html" title="Some title 3">About</a></li>
             </ul>
 
         </div>
-        
+
+
+
     </div> <!-- header -->
     
     <main style="background-color: #ccc;">
         <ul>
             <li><a href="index.html">Menu alternative 1</a></li>
             <li><a href="index2.html">Menu alternative 2 (default)</a></li>
+            <li><a href="index3.html">Menu alternative 3</a></li>
         </ul>
     </main>
 

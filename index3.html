@@ -5,19 +5,19 @@
 <link rel="stylesheet" type="text/css" href="responsive-menu.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <style>
-.rm-desktop {
-    float: none;
+.header {
+    float: left;
 }
 </style>
 <body>
 
     <div style="height: 100px; background-color: #ddd;">
-        <div><b style="font-size: 2em;">SiteTitle</b></div>
+        <span class="header"><b style="font-size: 2em;">SiteTitle</b></span>
 
 
 
         <!-- menu wrapper -->
-        <div class="rm-navbar">
+        <div class="rm-navbar rm-max rm-swipe-right">
 
             <!-- memu click button -->
             <div class="rm-small-wrapper">
@@ -30,43 +30,47 @@
             </div>
 
             <!-- main menu -->
-            <ul class="rm-default rm-desktop">
+            <ul id="rm-menu" class="rm-default rm-mobile">
 
                 <!-- menu item -->
-                <li><a href="index.html" title="Some title 1">Home</a></li>
+                <li><a href="index3.html" title="Some title 1">Home</a></li>
 
                 <!-- menu item with submenu -->
-                <li class="rm-submenu" ><a href="#" title="Some title 2">Test with submenu</a>
+                <li class="rm-submenu" >
+                    <a class="rm-submenu-button" href="#" title="Display submenu"></a>
+                    <a href="#" title="Some title 2">Test with submenu</a>
 
                     <!-- sub item -->
                     <ul>
                         <!-- menu item -->
-                        <li><a href="index.html" title="Some item 1">Item 1</a></li>
+                        <li><a href="index3.html" title="Some item 1">Item 1</a></li>
 
                         <!-- menu item with submenu -->
-                        <li class="rm-submenu" ><a href="#" title="Some title 2">Test with nested submenu</a>
+                        <li class="rm-submenu" >
+                            <a class="rm-submenu-button" href="#" title="Display submenu"></a>
+                            <a href="#" title="Some title 2">Test with nested submenu</a>
 
                             <!-- sub item -->
                             <ul class="rm-submenu-level-1">
                                 <!-- menu item -->
-                                <li><a href="index.html" title="Some item 1">Item 1</a></li>
+                                <li><a href="index3.html" title="Some item 1">Item 1</a></li>
 
                                 <!-- menu item -->
-                                <li><a href="index.html" title="Some item 2">Item 2</a></li>
+                                <li><a href="index3.html" title="Some item 2">Item 2</a></li>
 
                                 <!-- menu item -->
-                                <li><a href="index.html" title="Some item 2">Item 2</a></li>
+                                <li><a href="index3.html" title="Some item 2">Item 3</a></li>
                             </ul>
                         </li>
 
                         <!-- menu item -->
-                        <li><a href="index.html" title="Some item 2">Item 2</a></li>
+                        <li><a href="index3.html" title="Some item 2">Item 2</a></li>
                     </ul>
 
                 </li>
 
                 <!-- menu item -->
-                <li><a href="index.html" title="Some title 3">About</a></li>
+                <li><a href="index3.html" title="Some title 3">About</a></li>
             </ul>
 
         </div>
