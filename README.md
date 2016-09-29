@@ -5,3 +5,19 @@ A responsive menu
 [![CircleCI](https://circleci.com/gh/mosbth/responsive-menu.svg?style=svg)](https://circleci.com/gh/mosbth/responsive-menu)
 
 A responsive menu made in HTML, CSS/LESS, JavaScript (and PHP).
+
+
+
+Revision history
+------------------------
+
+v1.0.0 (2016-09-29)
+
+* First tagged version (test with design course).
+
+
+
+```
+ . 
+..:  Copyright (c) 2014-2016 Mikael Roos, me@mikaelroos.se 
+```

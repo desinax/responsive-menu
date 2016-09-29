@@ -1,30 +1,34 @@
+#!/usr/bin/make -f
 #
-	
+
+# Colors
+NO_COLOR		= \033[0m
+TARGET_COLOR	= \033[32;01m
+OK_COLOR		= \033[32;01m
+ERROR_COLOR		= \033[31;01m
+WARN_COLOR		= \033[33;01m
+ACTION			= $(TARGET_COLOR)--> 
+HELPTEXT 		= "$(ACTION)" `egrep "^\# target: $(1) " Makefile | sed "s/\# target: $(1)[ ]\+- / /g"` "$(NO_COLOR)"
+
+
+
+# Add local bin path for test tools
+BIN 		= bin
+VENDORBIN 	= vendor/bin
+NPMBIN		= node_modules/.bin
+
+# LESS and CSS
+LESS 		 	= src/less/style.less
+LESS_MODULES	= src/less/
+LESS_OPTIONS 	= --strict-imports --include-path=$(LESS_MODULES)
+CSSLINT_OPTIONS = --quiet
+
+
+
+# The JavaScript fileset
 #
-# The fileset
-#
-JS_FILES 	= responsive-menu.js
-JS_MINIFIED = $(JS_FILES:.js=.min.js)
-
-LESS_FILES 		= responsive-menu.less style.less
-LESS_COMPILED 	= $(LESS_FILES:.less=.css)
-LESS_MINIFIED 	= $(LESS_FILES:.less=.min.css)
-
-HTML_FILES	= $(wildcard *.html)
-
-
-
-#
-# Tool to compile and minify less code
-#
-LESS_COMPILE			= lessc
-LESS_COMPILE_OPTIONS 	= 
-
-LESS_MINIFY				= $(LESS_COMPILE)
-LESS_MINIFY_OPTIONS 	= --clean-css
-
-LESS_LINT				= $(LESS_COMPILE)
-LESS_LINT_OPTIONS 		= --lint
+JS_FILES 	= src/js/responsive-menu.js
+#JS_MINIFIED = $(JS_FILES:.js=.min.js)
 
 
 
@@ -42,27 +46,9 @@ JS_MINIFY_OPTIONS 	= --mangle --compress --screw-ie8 --comments
 
 
 
-#
-# Tool to lint HTML code
-#
-HTML_LINT 			= htmlhint
-HTML_LINT_OPTIONS 	= 
-
-
-
-# Colors
-NO_COLOR		= \033[0m
-TARGET_COLOR	= \033[32;01m
-OK_COLOR		= \033[32;01m
-ERROR_COLOR		= \033[31;01m
-WARN_COLOR		= \033[33;01m
-ACTION			= $(TARGET_COLOR)--> 
-
-
-
 # Add local bin path for test tools
 #SHELL 	:= /bin/bash
-PATH	:= "$(PWD)/node_modules/.bin:$(PATH)"
+#PATH	:= "$(PWD)/node_modules/.bin:$(PATH)"
 #SHELL 	:= env PATH=$(PATH) /bin/bash
 
 
@@ -72,33 +58,53 @@ PATH	:= "$(PWD)/node_modules/.bin:$(PATH)"
 # General and combined targets
 #
 
-# target: all - Default target, run tests and build
-all: test build
-
-
-# target: test - Do all tests
-test: js-cs js-lint less-lint html-lint
-
-
-
-# target: build - Do all build
-build: less-compile less-minify js-minify
+# target: help               - Displays help.
+.PHONY:  help
+help:
+	@echo $(call HELPTEXT,$@)
+	@echo "Usage:"
+	@echo " make [target] ..."
+	@echo "target:"
+	@egrep "^# target:" Makefile | sed 's/# target: / /g'
 
 
 
-# target: clean - Removes generated files and directories.
+# target: clean              - Remove all generated files.
+.PHONY:  clean
 clean:
-	@echo "$(ACTION)Remove all generated files$(NO_COLOR)"
+	@echo $(call HELPTEXT,$@)
+	rm -rf build
 	rm -f npm-debug.log
+
+
+
+# target: clean-all          - Remove all installed files.
+.PHONY:  clean-all
+clean-all: clean
+	@echo $(call HELPTEXT,$@)
 	rm -rf node_modules
 
 
 
-# target: help - Displays help.
-help:
-	@echo "make [target] ..."
-	@echo "target:"
-	@egrep "^# target:" Makefile | sed 's/# target: / /g'
+# target: prepare-build      - Clear and recreate the build directory.
+.PHONY: prepare-build
+prepare-build:
+	@echo $(call HELPTEXT,$@)
+	install -d build/css build/lint build/js
+
+
+
+# target: test               - Execute all tests.
+.PHONY: test
+test: less-lint js-cs js-lint
+	@echo $(call HELPTEXT,$@)
+
+
+
+# target: build              - Build all files and install in htdocs
+.PHONY: build
+build: less js-minify
+	@echo $(call HELPTEXT,$@)
 
 
 
@@ -107,28 +113,23 @@ help:
 # LESS
 #
 
-# target: less-compile - Compile LESS to CSS
-less-compile: $(LESS_FILES) $(LESS_COMPILED)
-
-%.css: %.less
-	@echo '==> LESS compiling $<'
-	$(LESS_COMPILE) $(LESS_COMPILE_OPTIONS) $< $@ 
-
-
-
-# target: less-minify - Minify LESS files to min.css
-less-minify: $(LESS_FILES) $(LESS_MINIFIED)
-
-%.min.css: %.css
-	@echo '==> LESS minifying $<'
-	$(LESS_MINIFY) $(LESS_MINIFY_OPTIONS) $< $@
+# target: less               - Compile and minify the stylesheet.
+.PHONY: less
+less: prepare-build
+	@echo $(call HELPTEXT,$@)
+	lessc $(LESS_OPTIONS) $(LESS) build/css/style.css
+	lessc --clean-css $(LESS_OPTIONS) $(LESS) build/css/style.min.css
+	cp build/css/style*.css htdocs/css/
 
 
 
-# target: less-lint - Lint LESS files
-less-lint: $(LESS_FILES)
-	@echo '==> LESS linting $<'
-	$(LESS_LINT) $(LESS_LINT_OPTIONS) $<
+# target: less-lint          - Lint the less stylesheet.
+.PHONY: less-lint
+less-lint: less
+	@echo $(call HELPTEXT,$@)
+	lessc --lint $(LESS_OPTIONS) $(LESS) > build/lint/style.less
+	- csslint $(CSSLINT_OPTIONS) build/css/style.css > build/lint/style.css
+	ls -l build/lint/
 
 
 
@@ -138,18 +139,31 @@ less-lint: $(LESS_FILES)
 #
 .PHONY: js-cs js-lint 
 	
+# target: js-minify          - Minify JavaScript files to min.js
+js-minify: prepare-build
+	@echo $(call HELPTEXT,$@)
+	@for file in $(JS_FILES); do \
+		filename=$$(basename "$$file"); \
+		extension="$${filename##*.}"; \
+		filename="$${filename%%.*}"; \
+		target="build/js/$${filename}.min.$${extension}"; \
+		echo "==> Minifying $$file > $$target"; \
+		$(JS_MINIFY) $(JS_MINIFY_OPTIONS) --output $$target $$file; \
+		echo "==> Installing to htdocs/js/$$target"; \
+		cp $$target $$file htdocs/js; \
+	done
 
-# target: js-minify - Minify JavaScript files to min.js
-js-minify: $(JS_FILES) $(JS_MINIFIED)
+	
 
-%.min.js: %.js
-	@echo '==> Minifying $<'
-	$(JS_MINIFY) $(JS_MINIFY_OPTIONS) --output $@ $<
-
+#%.min.js: %.js
+#	@echo '==> Minifying $<'
+#	$(JS_MINIFY) $(JS_MINIFY_OPTIONS) --output $@ $<
 
 
-# target: js-cs - Check codestyle in javascript files
+
+# target: js-cs              - Check codestyle in javascript files
 js-cs:
+	@echo $(call HELPTEXT,$@)
 	@for file in $(JS_FILES); do \
 		echo "==> JavaScript codestyle $$file"; \
 		$(JS_CODESTYLE) $(JS_CODESTYLE_OPTIONS) $$file; \
@@ -157,8 +171,9 @@ js-cs:
 
 
 
-# target: js-lint - Lint javascript files
+# target: js-lint            - Lint javascript files
 js-lint:
+	@echo $(call HELPTEXT,$@)
 	@for file in $(JS_FILES); do \
 		echo "==> JavaScript lint $$file"; \
 		$(JS_LINT) $(JS_LINT_OPTIONS) $$file; \
@@ -169,25 +184,9 @@ js-lint:
 
 # ------------------------------------------------------------------------
 #
-# HTML
-#
-.PHONY:	html-lint
-
-# target: html-lint - Lint HTML files
-html-lint:
-	@for file in $(HTML_FILES); do \
-		echo -n "==> HTML linting $$file"; \
-		$(HTML_LINT) $(HTML_LINT_OPTIONS) $$file | grep -v "Config loaded: "; \
-	done
-
-
-
-
-# ------------------------------------------------------------------------
-#
 # Local test environment
 #
-# target: npm-install-dev - Install npm packages for development.
+# target: npm-install-dev    - Install npm packages for development.
 .PHONY: npm-install-dev
 npm-install-dev:
 	@echo "$(ACTION)Install npm packages for development$(NO_COLOR)"
@@ -195,7 +194,7 @@ npm-install-dev:
 
 
 
-# target: npm-update-dev  - Update npm packages for development.
+# target: npm-update-dev     - Update npm packages for development.
 .PHONY: npm-update-dev
 npm-update-dev:
 	@echo "$(ACTION)Update npm packages for development$(NO_COLOR)"

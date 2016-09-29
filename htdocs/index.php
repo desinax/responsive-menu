@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="style.min.css">
+<link rel="stylesheet" type="text/css" href="css/style.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 <style>
@@ -58,10 +58,10 @@ main {
     </div> <!-- header -->
     
     <main>
-
+        <p><?= isset($_GET["page"]) ? htmlentities($_GET["page"]) : "home" ?></p>
     </main>
 
-    <script src="responsive-menu.min.js"></script>
+    <script src="js/responsive-menu.min.js"></script>
 
 </body>
 </html>
