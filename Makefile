@@ -6,7 +6,7 @@
 JS_FILES 	= responsive-menu.js
 JS_MINIFIED = $(JS_FILES:.js=.min.js)
 
-LESS_FILES 		= responsive-menu.less
+LESS_FILES 		= responsive-menu.less style.less
 LESS_COMPILED 	= $(LESS_FILES:.less=.css)
 LESS_MINIFIED 	= $(LESS_FILES:.less=.min.css)
 

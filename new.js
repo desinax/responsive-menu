@@ -113,7 +113,6 @@
     /**
      *
      */
-    /*
     var clearMenu = function (event) {
         //console.log("Clear menu");
         // Add desktop and remove mobile, but not if max menu is enabled
@@ -129,9 +128,8 @@
 
         event.preventDefault();
     };
-*/
 
-    window.addEventListener("resize", function(/* event */) {
+    window.addEventListener("resize", function(event) {
         //clearMenu(event);
         setMaxMenuSize();
     });

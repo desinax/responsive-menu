@@ -1,3 +1,6 @@
+/*
+ * Make some modifications of the navbar here.
+ */
 /**
  * Style for responsive menu
  */
@@ -158,7 +161,7 @@ a.rm-button.rm-clicked .rm-button-face-2 {
   display: block;
 }
 .rm-max .rm-small .rm-button {
-  font-size: inherit;
+  font-size: 2em;
   color: inherit;
 }
 .rm-max .rm-small .rm-button.rm-clicked {
@@ -185,7 +188,7 @@ a.rm-button.rm-clicked .rm-button-face-2 {
   /* Style for submenu */
 }
 .rm-max .rm-mobile li a:active {
-  background-color: transparent;
+  background-color: #2f350c;
 }
 .rm-max .rm-mobile.rm-clicked {
   transform: translateX(0);
@@ -223,4 +226,23 @@ a.rm-button.rm-clicked .rm-button-face-2 {
 }
 .rm-max.rm-swipe-right .rm-mobile {
   right: 0;
+}
+/**
+ * Style for responsive menu
+ */
+/**
+  * Example on media queries
+  */
+@media screen and (max-width: 680px) {
+  .rm-small {
+    display: block;
+  }
+  .rm-desktop {
+    display: none;
+  }
+}
+@media screen and (min-width: 680px) {
+  .rm-small {
+    display: none;
+  }
 }

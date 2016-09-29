@@ -4,14 +4,14 @@
 
 // General
 //@navbarAccentColor:         #9FB129;
-@navbarBgColor:             inherit; //#444;
-@navbarItemColor:           inherit;
-@navbarItemHoverColor:      inherit; //lighten(@navbarItemColor, 20%);
-@navbarItemHoverBgColor:    inherit; //#666;
+@navbarBgColor:             #444;
+@navbarItemColor:           #eee;
+@navbarItemHoverColor:      lighten(@navbarItemColor, 20%);
+@navbarItemHoverBgColor:    #666;
 
 // Menu item current/selected
-@navbarItemSelectedColor:       inherit;
-@navbarItemSelectedBgColor:     inherit; 
+@navbarItemSelectedColor:       darken(@navbarItemColor, 10%); 
+@navbarItemSelectedBgColor:     #666; 
 //@navbarItemSelectedBorderColor: darken(lime, 10%);
 
 // Mobile button
@@ -40,18 +40,6 @@
 @submenuMinWidth:           10em;
 @submenuItemBorderColor:    #eee;
 
-// Mobile menu
-@mobileBgColor:     #444;
-@mobileColor:       #fff;
-
-// Max menu
-@maxBgColor:                #131313;
-@maxMenuItemClickedBgColor: transparent; //@navbarMenuButtonClickedColor;
-@maxButtonFontSize:         inherit;
-@maxButtonColor:            inherit;
-@maxButtonClickedColor:     @navbarMenuButtonClickedColor;
-@maxButtonSubmenuBgColor:    444;
-@maxButtonSubmenuHoverBgColor: #ccc;
 
 /**
  * Outer wrapper for menu
@@ -71,20 +59,10 @@
 
 
 /**
- * Avoid scrolling mobile devices
- * OBSOLETE?
- */
-.rm-modal {
-//    position: fixed;
-//    overflow: hidden;
-}
-
-
-
-/**
  * Meny layout for the small buttonized menu.
  */
 .rm-small {
+
     display: none;
     float: right;
 }
@@ -93,12 +71,16 @@ a.rm-button {
     display: inline-block;
     color: @navbarMenuButtonColor;
     background-color: @navbarMenuButtonBgColor;
+    //border: 1px solid @navbarMenuButtonBorderColor;
+    //border-radius: 4px;
+    //padding: 4px 6px;
     outline: none;
 
     //&:hover, // Avoid hover, click, double-tap behaviour
     &:active {
         color: @navbarMenuButtonHoverColor;
         background-color: @navbarMenuButtonHoverBgColor;
+        //border: 1px solid @navbarMenuButtonHoverBorderColor;
     }
 
     .rm-button-face-1 {
@@ -115,6 +97,7 @@ a.rm-button {
     &.rm-clicked {
         color: @navbarMenuButtonClickedColor;
         background-color: @navbarMenuButtonClickedBgColor;
+        //border-color: @navbarMenuButtonClickedBorderColor;
 
         .rm-button-face-1 {
             color: transparent;
@@ -133,8 +116,10 @@ a.rm-button {
  * Standard meny layout, valid for any subtype.
  */
 .rm-default {
-
+    background-color: @navbarBgColor;
+    
     li {
+        color: @navbarItemColor;
         display: inline-block;
 
         // Hover over a menu item
@@ -152,13 +137,16 @@ a.rm-button {
 
     // The link of the menu item
     a {
-        display: block;
+        display: inherit;
         text-decoration: none;
+        color: inherit;
         white-space: nowrap;
         padding: 1em;
         outline: none;
 
         &:hover {
+            color: @navbarItemHoverColor;
+            background-color: @navbarItemHoverBgColor;
         }
     }
 
@@ -167,7 +155,8 @@ a.rm-button {
         position: absolute; 
         z-index: @submenuZIndex;
         left: -9999px; 
-        //padding-left: 8px; 
+        background-color: @submenuBgColor; 
+        padding-left: 8px; 
 
         // Display the submenu, class to use from javascript
         &.rm-show-submenu {
@@ -176,11 +165,7 @@ a.rm-button {
 
         li {
             box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.4);
-         }
-
-         // Submenu
-         ul {
-             left: -9999px; 
+            //border-left: 4px solid transparent;  
          }
      }
 }
@@ -191,10 +176,7 @@ a.rm-button {
  * Menu layout for the desktop variant, usually full width of browser.
  */
 .rm-desktop {
-
-    ul {
-        background-color: @submenuBgColor; 
-    }
+    float: right;
 
     li {
         position: relative;
@@ -204,36 +186,15 @@ a.rm-button {
         &.rm-selected,
         &.selected-parent, // for selected descendants
         &.selected {
-            //color: @navbarItemSelectedColor; 
-            //background-color: @navbarItemSelectedBgColor; 
+            color: @navbarItemSelectedColor; 
+            background-color: @navbarItemSelectedBgColor; 
+            //border-color: @navbarItemSelectedBorderColor;
         }
 
-
-
-        // Style hovering over a menu item
-        a:hover,
-        &.current-menu-item a {
-            text-decoration: underline;
-        }
-
-
-
-        // The link of the menu item
-        a {
-            color: @navbarItemColor;
-
-            &:hover {
-                color: @navbarItemHoverColor;
-                background-color: @navbarItemHoverBgColor;
-            }
-        }
-
-
-
-        // Hover over a menu item and display submenu
+        // Hover over a menu item
         &:hover {
-            //color: @navbarItemHoverColor;
-            //background-color: @navbarItemHoverBgColor;
+            color: @navbarItemHoverColor;
+            background-color: @navbarItemHoverBgColor;
 
             // To display submenu(s)
             > ul {
@@ -245,12 +206,6 @@ a.rm-button {
                 left: 30%;
             }
         } 
-
-
-        // Dropdown submenu, remove hide show button
-        .rm-submenu-button {
-            display: none;
-        }
     }
 }
 
@@ -261,17 +216,17 @@ a.rm-button {
  */
 .rm-mobile {
     width: 100%;
+    //border-top: 1px solid @navbarMobileBorderColor;
+    //border-bottom: 1px solid @navbarMobileBorderColor;
+    float: right;
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
-    background-color: @mobileBgColor;
-    color: @mobileColor;
-
-    a {
-        color: inherit;
-    }
-
+ 
     li {
         display: block;
         box-shadow: 0px 0px 1px rgba(255, 255, 255, 0.4);
+
+        //border-top: 1px solid @navbarMobileItemBorderColor;
+        //border-bottom: 1px solid @navbarMobileItemBorderColor;
 
         // All items of the menu
         a:before {
@@ -317,52 +272,21 @@ a.rm-button {
  * Swipe from right by default.
  */
 .rm-max {
-
-    // Place the menu button
-    &.rm-navbar {
-        position: absolute;
-        top: 16px;
-        right: 24px;
-    }
-
     // Show the button menu
     .rm-small {
         display: block;
-
-        .rm-button {
-            font-size: @maxButtonFontSize;
-            color: @maxButtonColor;
-
-            &.rm-clicked {
-                //background-color: transparent;
-                color: @maxButtonClickedColor;
-                position: fixed;
-                top: 16px;
-                right: 24px;
-                z-index: 999;
-            }
-        }
     }
 
     // Customize the mobile menu, hide by default
     .rm-mobile {
         transition: all 0.15s linear;
         position: fixed;
-        z-index: 998;
         top: 0;
         transform: translateX(100%);
         width: 500px;
         max-width: 500px;
         height: 500px;
         overflow-y: auto;
-        padding-top: 72px;
-        background-color: @maxBgColor;
-
-
-        /* Color when menu item is clicked */
-        li a:active {
-            background-color: @maxMenuItemClickedBgColor;
-        }
 
         &.rm-clicked {
             transform: translateX(0);
@@ -372,21 +296,17 @@ a.rm-button {
             text-decoration: underline;
         }
 
-        /* Button for submenu */
         .rm-submenu-button {
             font-family: FontAwesome;
             float: right;
+            //width: 1em;
             box-shadow: 0px 0px 1px rgba(255, 255, 255, 0.4);
-            background-color: @maxButtonSubmenuBgColor;
-            padding: 8px 24px;
+            //border-left: 1px solid #eee;
+            background-color: #444;
+            padding: 6px 10px;
             margin-right: 8px;
             margin-top: 10px;
             border-radius: 5px;
-
-            // Really needed for compatibility?
-            position: relative;
-            z-index: 1;
-
 
             &:after {
                 content: "\f0d7";
@@ -394,13 +314,8 @@ a.rm-button {
 
             &:hover {
                 text-decoration: none;
-                background-color: @maxButtonSubmenuHoverBgColor;
+                background-color: #999;
             }
-        }
-
-        /* Style for submenu */
-        li ul {
-            padding-left: 8px;
         }
 
         // Header of submenu is opened
@@ -420,5 +335,26 @@ a.rm-button {
         .rm-mobile {
             right: 0;
         }
+    }
+}
+
+
+
+/**
+ * Example on media queries
+ */
+@media screen and (max-width: 680px) {
+    .rm-small {
+        display: block;
+    }
+    
+    .rm-desktop {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 680px) {
+    .rm-small {
+        display: none;
     }
 }
