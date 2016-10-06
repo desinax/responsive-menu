@@ -4,7 +4,7 @@
 
 // General
 //@navbarAccentColor:         #9FB129;
-@navbarBgColor:             inherit; //#444;
+@navbarItemBgColor:         inherit; //#444;
 @navbarItemColor:           inherit;
 @navbarItemHoverColor:      inherit; //lighten(@navbarItemColor, 20%);
 @navbarItemHoverBgColor:    inherit; //#666;
@@ -36,7 +36,7 @@
 
 // Submenu
 @submenuZIndex:             9999;
-@submenuBgColor:            @navbarBgColor;
+@submenuBgColor:            @navbarItemBgColor;
 @submenuMinWidth:           10em;
 @submenuItemBorderColor:    #eee;
 
@@ -221,6 +221,7 @@ a.rm-button {
         // The link of the menu item
         a {
             color: @navbarItemColor;
+            background-color: @navbarItemBgColor;
 
             &:hover {
                 color: @navbarItemHoverColor;
