@@ -8,16 +8,7 @@ A responsive menu made in HTML, CSS/LESS, JavaScript (and PHP).
 
 
 
-Revision history
-------------------------
-
-v1.0.0 (2016-09-29)
-
-* First tagged version (test with design course).
-
-
-
 ```
  . 
-..:  Copyright (c) 2014-2016 Mikael Roos, me@mikaelroos.se 
+..:  Copyright (c) 2014-2016 Mikael Roos, mos@dbwebb.se 
 ```
