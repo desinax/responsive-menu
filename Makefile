@@ -59,10 +59,10 @@ JS_FILES 	= src/js/responsive-menu.js
 JS_CODESTYLE 			= jscs
 JS_CODESTYLE_OPTIONS 	=
 
-JS_LINT 				= eshint
+JS_LINT 				= eslint
 JS_LINT_OPTIONS 		=
 
-JS_MINIFY 			= uglifyes
+JS_MINIFY 			= uglifyjs
 JS_MINIFY_OPTIONS 	= --mangle --compress --screw-ie8 --comments
 
 
@@ -82,10 +82,10 @@ JS_MINIFY_OPTIONS 	= --mangle --compress --screw-ie8 --comments
 # target: help               - Displays help.
 .PHONY:  help
 help:
-	@echo $(call HELPTEXT,$@)
-	@echo "Usage:"
-	@echo " make [target] ..."
-	@echo "target:"
+	@$(call HELPTEXT,$@)
+	@$(ECHO) "Usage:"
+	@$(ECHO) " make [target] ..."
+	@$(ECHO) "target:"
 	@egrep "^# target:" Makefile | sed 's/# target: / /g'
 
 
@@ -93,7 +93,7 @@ help:
 # target: clean              - Remove all generated files.
 .PHONY:  clean
 clean:
-	@echo $(call HELPTEXT,$@)
+	@$(call HELPTEXT,$@)
 	rm -rf build
 	rm -f npm-debug.log
 
@@ -102,7 +102,7 @@ clean:
 # target: clean-all          - Remove all installed files.
 .PHONY:  clean-all
 clean-all: clean
-	@echo $(call HELPTEXT,$@)
+	@$(call HELPTEXT,$@)
 	rm -rf node_modules
 
 
@@ -110,7 +110,7 @@ clean-all: clean
 # target: prepare-build      - Clear and recreate the build directory.
 .PHONY: prepare-build
 prepare-build:
-	@echo $(call HELPTEXT,$@)
+	@$(call HELPTEXT,$@)
 	install -d build/css build/lint build/js
 
 
@@ -118,33 +118,40 @@ prepare-build:
 # target: install            - Install all tools neded.
 .PHONY: install
 install:
-	@echo $(call HELPTEXT,$@)
+	@$(call HELPTEXT,$@)
 	npm install
-	
+	cp node_modules/css-styleguide/.stylelintrc.json .
+	cp node_modules/javascript-style-guide/.jscsrc .
+	cp node_modules/javascript-style-guide/.eslintrc.json .
+
 
 
 # target: test               - Execute all tests.
 .PHONY: test
 test: less-lint js-cs js-lint
-	@echo $(call HELPTEXT,$@)
+	@$(call HELPTEXT,$@)
 
 
 
 # target: build              - Build all files and install in htdocs
 .PHONY: build
 build: less js-minify
-	@echo $(call HELPTEXT,$@)
+	@$(call HELPTEXT,$@)
+
 
 
 
 # target: check              - Check versions of all installed tools.
 .PHONY: check
 check:
-	@echo $(call HELPTEXT,$@)
+	@$(call HELPTEXT,$@)
 	@$(call CHECK_VERSION, node)
 	@$(call CHECK_VERSION, npm)
 	@$(call CHECK_VERSION, $(STYLELINT))
 	@$(call CHECK_VERSION, $(LESSC), | cut -d ' ' -f 2)
+	@$(call CHECK_VERSION, $(JS_CODESTYLE))
+	@$(call CHECK_VERSION, $(JS_LINT))
+	@$(call CHECK_VERSION, $(JS_MINIFY), | cut -d ' ' -f 2)
 
 
 
@@ -156,7 +163,7 @@ check:
 # target: less               - Compile and minify the stylesheet.
 .PHONY: less
 less: prepare-build
-	@echo $(call HELPTEXT,$@)
+	@$(call HELPTEXT,$@)
 	$(LESSC) $(LESS_OPTIONS) $(LESS) build/css/style.css
 	$(LESSC) --clean-css $(LESS_OPTIONS) $(LESS) build/css/style.min.css
 	cp build/css/style*.css htdocs/css/
@@ -166,7 +173,7 @@ less: prepare-build
 # target: less-lint          - Lint the less stylesheet.
 .PHONY: less-lint
 less-lint: less
-	@echo $(call HELPTEXT,$@)
+	@$(call HELPTEXT,$@)
 	$(LESSC) --lint $(LESS_OPTIONS) $(LESS) > build/lint/style.less
 	- $(STYLELINT) build/css/style.css > build/lint/style.stylelint.css
 	ls -l build/lint/
@@ -181,31 +188,31 @@ less-lint: less
 	
 # target: js-minify          - Minify JavaScript files to min.js
 js-minify: prepare-build
-	@echo $(call HELPTEXT,$@)
+	@$(call HELPTEXT,$@)
 	@for file in $(JS_FILES); do \
 		filename=$$(basename "$$file"); \
 		extension="$${filename##*.}"; \
 		filename="$${filename%%.*}"; \
 		target="build/js/$${filename}.min.$${extension}"; \
-		echo "==> Minifying $$file > $$target"; \
+		$(ECHO) "==> Minifying $$file > $$target"; \
 		$(JS_MINIFY) $(JS_MINIFY_OPTIONS) --output $$target $$file; \
-		echo "==> Installing to htdocs/js/$$target"; \
+		$(ECHO) "==> Installing to htdocs/js/$$target"; \
 		cp $$target $$file htdocs/js; \
 	done
 
 	
 
 #%.min.js: %.js
-#	@echo '==> Minifying $<'
+#	@$(ECHO) '==> Minifying $<'
 #	$(JS_MINIFY) $(JS_MINIFY_OPTIONS) --output $@ $<
 
 
 
 # target: js-cs              - Check codestyle in javascript files
 js-cs:
-	@echo $(call HELPTEXT,$@)
+	@$(call HELPTEXT,$@)
 	@for file in $(JS_FILES); do \
-		echo "==> JavaScript codestyle $$file"; \
+		$(ECHO) "==> JavaScript codestyle $$file"; \
 		$(JS_CODESTYLE) $(JS_CODESTYLE_OPTIONS) $$file; \
 	done
 
@@ -213,52 +220,8 @@ js-cs:
 
 # target: js-lint            - Lint javascript files
 js-lint:
-	@echo $(call HELPTEXT,$@)
+	@$(call HELPTEXT,$@)
 	@for file in $(JS_FILES); do \
-		echo "==> JavaScript lint $$file"; \
+		$(ECHO) "==> JavaScript lint $$file"; \
 		$(JS_LINT) $(JS_LINT_OPTIONS) $$file; \
 	done
-	@echo
-
-
-
-# ------------------------------------------------------------------------
-#
-# Local test environment
-#
-# target: npm-install-dev    - Install npm packages for development.
-.PHONY: npm-install-dev
-npm-install-dev:
-	@echo "$(ACTION)Install npm packages for development$(NO_COLOR)"
-	npm install --only=dev
-
-
-
-# target: npm-update-dev     - Update npm packages for development.
-.PHONY: npm-update-dev
-npm-update-dev:
-	@echo "$(ACTION)Update npm packages for development$(NO_COLOR)"
-	npm update --only=dev
-
-
-
-# target: automated-tests-prepare - Prepare for automated tests.
-.PHONY: automated-tests-prepare
-automated-tests-prepare: npm-install-dev
-	@echo "$(ACTION)Prepared for automated tests$(NO_COLOR)"
-
-
-
-# target: automated-tests-check   - Check version and enviroment for automated tests.
-.PHONY: automated-tests-check
-automated-tests-check:
-	@echo "$(ACTION)Check version and environment for automated tests$(NO_COLOR)"
-	
-	npm list
-
-
-
-# target: automated-tests-run     - Run all automated tests.
-.PHONY: automated-tests-run
-automated-tests-run: test
-	@echo "$(ACTION)Executed all automated tests$(NO_COLOR)"

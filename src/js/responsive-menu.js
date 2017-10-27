@@ -1,7 +1,7 @@
 /**
  * @preserve Setup the basis for the responsive menu.
  * @author Mikael Roos <mos@dbwebb.se>
- * @see {@link https://github.com/mosbth/responsive-menu}
+ * @see {@link https://github.com/janaxs/responsive-menu}
  */
 (function() {
     "use strict";
@@ -29,6 +29,7 @@
         menuMax.style.width  = window.innerWidth + "px";
         menuMax.style.height = window.innerHeight + "px";
     };
+
     setMaxMenuSize();
 
 
@@ -66,6 +67,7 @@
     Array.prototype.filter.call(submenuswp, function(element) {
         // Add a clickable button to (max) menu
         var button = document.createElement("a");
+
         button.setAttribute("href", "#");
         button.setAttribute("class", "rm-submenu-button");
         button.addEventListener("click", showSubmenu);
@@ -81,7 +83,6 @@
      * Show the menu when clicking on the closed (mobile) menu button.
      */
     menuButton.addEventListener("click", function(event) {
-
         // Toggle display of menu
         menu.classList.toggle("rm-clicked");
         menuButton.classList.toggle("rm-clicked");
@@ -136,5 +137,4 @@
         setMaxMenuSize();
     });
     //document.addEventListener("click", clearMenu);
-
 })();

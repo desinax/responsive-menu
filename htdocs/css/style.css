@@ -102,6 +102,7 @@ a.rm-button.rm-clicked .rm-button-face-2 {
 }
 .rm-desktop li a {
   color: inherit;
+  background-color: inherit;
 }
 .rm-desktop li a:hover {
   color: inherit;
@@ -200,7 +201,7 @@ a.rm-button.rm-clicked .rm-button-face-2 {
   font-family: FontAwesome;
   float: right;
   box-shadow: 0px 0px 1px rgba(255, 255, 255, 0.4);
-  background-color: 444;
+  background-color: #444;
   padding: 8px 24px;
   margin-right: 8px;
   margin-top: 10px;
