@@ -1,8 +1,9 @@
 language: node_js
 
 node_js:
-    - "5"
-    - "4"
+    - "node"
+    - "7"
+    - "6"
 
 
 
@@ -25,17 +26,12 @@ addons:
 
 
 before_script:
-    # Prepare for automated tests
-    - make automated-tests-prepare
+    - make install check
 
 
 
 script:
-    # Check version and environment
-    - make automated-tests-check
-
-    # Run tests
-    - make automated-tests-run
+    - make test
 
 
 
