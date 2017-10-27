@@ -1,16 +1,35 @@
 #!/usr/bin/make -f
 #
+#
 
-# Colors
-NO_COLOR		= \033[0m
-TARGET_COLOR	= \033[32;01m
-OK_COLOR		= \033[32;01m
-ERROR_COLOR		= \033[31;01m
-WARN_COLOR		= \033[33;01m
-ACTION			= $(TARGET_COLOR)--> 
-HELPTEXT 		= "$(ACTION)" `egrep "^\# target: $(1) " Makefile | sed "s/\# target: $(1)[ ]\+- / /g"` "$(NO_COLOR)"
+# Detect OS
+OS = $(shell uname -s)
 
+# Defaults
+ECHO = echo
 
+# Make adjustments based on OS
+# http://stackoverflow.com/questions/3466166/how-to-check-if-running-in-cygwin-mac-or-linux/27776822#27776822
+ifneq (, $(findstring CYGWIN, $(OS)))
+	ECHO = /bin/echo -e
+endif
+
+# Colors and helptext
+NO_COLOR	= \033[0m
+ACTION		= \033[32;01m
+OK_COLOR	= \033[32;01m
+ERROR_COLOR	= \033[31;01m
+WARN_COLOR	= \033[33;01m
+
+# Which makefile am I in?
+WHERE-AM-I = $(CURDIR)/$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
+THIS_MAKEFILE := $(call WHERE-AM-I)
+
+# Echo some nice helptext based on the target comment
+HELPTEXT = $(ECHO) "$(ACTION)--->" `egrep "^\# target: $(1) " $(THIS_MAKEFILE) | sed "s/\# target: $(1)[ ]*-[ ]* / /g"` "$(NO_COLOR)"
+
+# Check version  and path to command and display on one line
+CHECK_VERSION = printf "%-15s %-10s %s\n" "`basename $(1)`" "`$(1) --version $(2)`" "`which $(1)`"
 
 # Add local bin path for test tools
 BIN 		= bin
@@ -21,7 +40,9 @@ NPMBIN		= node_modules/.bin
 LESS 		 	= src/less/style.less
 LESS_MODULES	= src/less/
 LESS_OPTIONS 	= --strict-imports --include-path=$(LESS_MODULES)
-CSSLINT_OPTIONS = --quiet
+
+STYLELINT := $(NPMBIN)/stylelint
+LESSC     := $(NPMBIN)/lessc
 
 
 
@@ -38,10 +59,10 @@ JS_FILES 	= src/js/responsive-menu.js
 JS_CODESTYLE 			= jscs
 JS_CODESTYLE_OPTIONS 	=
 
-JS_LINT 				= jshint
+JS_LINT 				= eshint
 JS_LINT_OPTIONS 		=
 
-JS_MINIFY 			= uglifyjs
+JS_MINIFY 			= uglifyes
 JS_MINIFY_OPTIONS 	= --mangle --compress --screw-ie8 --comments
 
 
@@ -94,6 +115,14 @@ prepare-build:
 
 
 
+# target: install            - Install all tools neded.
+.PHONY: install
+install:
+	@echo $(call HELPTEXT,$@)
+	npm install
+	
+
+
 # target: test               - Execute all tests.
 .PHONY: test
 test: less-lint js-cs js-lint
@@ -108,6 +137,17 @@ build: less js-minify
 
 
 
+# target: check              - Check versions of all installed tools.
+.PHONY: check
+check:
+	@echo $(call HELPTEXT,$@)
+	@$(call CHECK_VERSION, node)
+	@$(call CHECK_VERSION, npm)
+	@$(call CHECK_VERSION, $(STYLELINT))
+	@$(call CHECK_VERSION, $(LESSC), | cut -d ' ' -f 2)
+
+
+
 # ------------------------------------------------------------------------
 #
 # LESS
@@ -117,8 +157,8 @@ build: less js-minify
 .PHONY: less
 less: prepare-build
 	@echo $(call HELPTEXT,$@)
-	lessc $(LESS_OPTIONS) $(LESS) build/css/style.css
-	lessc --clean-css $(LESS_OPTIONS) $(LESS) build/css/style.min.css
+	$(LESSC) $(LESS_OPTIONS) $(LESS) build/css/style.css
+	$(LESSC) --clean-css $(LESS_OPTIONS) $(LESS) build/css/style.min.css
 	cp build/css/style*.css htdocs/css/
 
 
@@ -127,8 +167,8 @@ less: prepare-build
 .PHONY: less-lint
 less-lint: less
 	@echo $(call HELPTEXT,$@)
-	lessc --lint $(LESS_OPTIONS) $(LESS) > build/lint/style.less
-	- csslint $(CSSLINT_OPTIONS) build/css/style.css > build/lint/style.css
+	$(LESSC) --lint $(LESS_OPTIONS) $(LESS) > build/lint/style.less
+	- $(STYLELINT) build/css/style.css > build/lint/style.stylelint.css
 	ls -l build/lint/
 
 
