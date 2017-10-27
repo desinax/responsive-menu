@@ -1,6 +1,6 @@
 {
   "name": "responsive-menu",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "LESS and JS for a responsive menu.",
   "main": null,
   "devDependencies": {
@@ -15,7 +15,7 @@
     "less-plugin-clean-css": "^1.5",
     "stylelint": "^8.2.0",
     "uglify-es": "^3.1.5"
-},
+  },
   "scripts": {
     "test": "make test"
   },
