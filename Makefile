@@ -121,7 +121,6 @@ install:
 	@$(call HELPTEXT,$@)
 	npm install
 	cp node_modules/css-styleguide/.stylelintrc.json .
-	cp node_modules/javascript-style-guide/.jscsrc .
 	cp node_modules/javascript-style-guide/.eslintrc.json .
 
 
