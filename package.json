@@ -10,7 +10,6 @@
     "eslint-plugin-react": "^7.4.0",
     "htmlhint": "0.9.12",
     "javascript-style-guide": "^0.9.10",
-    "jscs": "^3",
     "less": "^2.7",
     "less-plugin-clean-css": "^1.5",
     "stylelint": "^8.2.0",
