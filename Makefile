@@ -56,8 +56,8 @@ JS_FILES 	= src/js/responsive-menu.js
 #
 # Tool to check and minimize javascript code
 #
-JS_CODESTYLE 			= jscs
-JS_CODESTYLE_OPTIONS 	=
+# JS_CODESTYLE 			= jscs
+# JS_CODESTYLE_OPTIONS 	=
 
 JS_LINT 				= eslint
 JS_LINT_OPTIONS 		=
@@ -148,7 +148,6 @@ check:
 	@$(call CHECK_VERSION, npm)
 	@$(call CHECK_VERSION, $(STYLELINT))
 	@$(call CHECK_VERSION, $(LESSC), | cut -d ' ' -f 2)
-	@$(call CHECK_VERSION, $(JS_CODESTYLE))
 	@$(call CHECK_VERSION, $(JS_LINT))
 	@$(call CHECK_VERSION, $(JS_MINIFY), | cut -d ' ' -f 2)
 
@@ -208,12 +207,12 @@ js-minify: prepare-build
 
 
 # target: js-cs              - Check codestyle in javascript files
-js-cs:
-	@$(call HELPTEXT,$@)
-	@for file in $(JS_FILES); do \
-		$(ECHO) "==> JavaScript codestyle $$file"; \
-		$(JS_CODESTYLE) $(JS_CODESTYLE_OPTIONS) $$file; \
-	done
+# js-cs:
+# 	@$(call HELPTEXT,$@)
+# 	@for file in $(JS_FILES); do \
+# 		$(ECHO) "==> JavaScript codestyle $$file"; \
+# 		$(JS_CODESTYLE) $(JS_CODESTYLE_OPTIONS) $$file; \
+# 	done
 
 
 
