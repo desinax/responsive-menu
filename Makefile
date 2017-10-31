@@ -59,10 +59,10 @@ JS_FILES 	= src/js/responsive-menu.js
 # JS_CODESTYLE 			= jscs
 # JS_CODESTYLE_OPTIONS 	=
 
-JS_LINT 				= eslint
+JS_LINT 				= $(NPMBIN)/eslint
 JS_LINT_OPTIONS 		=
 
-JS_MINIFY 			= uglifyjs
+JS_MINIFY 			= $(NPMBIN)/uglifyjs
 JS_MINIFY_OPTIONS 	= --mangle --compress --screw-ie8 --comments
 
 
