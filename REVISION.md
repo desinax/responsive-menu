@@ -1,12 +1,22 @@
 Revision History
 =======================
 
+
+
+v1.1.3 (2018-04-15)
+------------------------
+
+* Change npm to namespace @desinax.
+
+
+
 v1.1.2 (2017-10-31)
 ------------------------
 
 * Fix badges.
 * Remove jscs.
 * Update stylelint config.
+
 
 
 v1.1.1 (2017-10-27)
@@ -16,11 +26,13 @@ v1.1.1 (2017-10-27)
 * Update validation config and fixa validation errors.
 
 
+
 v1.1.0 (2017-10-27)
 ------------------------
 
 * Remove jshint validator.
 * Create as npm package.
+
 
 
 v1.0.0 (2016-10-21)
