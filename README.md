@@ -9,7 +9,18 @@ A responsive menu made in HTML, CSS/LESS, JavaScript (and PHP).
 
 
 
+Install
+-------------------------------
+
+You can install using npm.
+
+```text
+npm install desinax-responsive-menu
+```
+
+
+
 ```
  . 
-..:  Copyright (c) 2014-2017 Mikael Roos, mos@dbwebb.se 
+..:  Copyright (c) 2014-2018 Mikael Roos, mos@dbwebb.se 
 ```
