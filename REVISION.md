@@ -3,6 +3,14 @@ Revision History
 
 
 
+v1.1.4 (2018-10-01)
+------------------------
+
+* Remove dependency to Font Awesome by using UTF-8 characters for open/close submenu.
+* Update Makefile.
+
+
+
 v1.1.3 (2018-04-15)
 ------------------------
 

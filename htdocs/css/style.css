@@ -198,7 +198,6 @@ a.rm-button.rm-clicked .rm-button-face-2 {
   text-decoration: underline;
 }
 .rm-max .rm-mobile .rm-submenu-button {
-  font-family: FontAwesome;
   float: right;
   box-shadow: 0px 0px 1px rgba(255, 255, 255, 0.4);
   background-color: #444;
@@ -210,7 +209,7 @@ a.rm-button.rm-clicked .rm-button-face-2 {
   z-index: 1;
 }
 .rm-max .rm-mobile .rm-submenu-button:after {
-  content: "\f0d7";
+  content: "\25BC";
 }
 .rm-max .rm-mobile .rm-submenu-button:hover {
   text-decoration: none;
