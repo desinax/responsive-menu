@@ -3,6 +3,13 @@ Revision History
 
 
 
+Plan
+------------------------
+
+* Align Makefile with other modules, but this Makefile supports JS so integrate it into the other files.
+
+
+
 v1.1.4 (2018-10-01)
 ------------------------
 
