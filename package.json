@@ -1,7 +1,7 @@
 {
   "name": "@desinax/responsive-menu",
-  "version": "1.1.4",
-  "description": "LESS and JS for a responsive menu.",
+  "version": "1.1.5",
+  "description": "Desinax LESS/SASS/JS module for a responsive menu.",
   "main": null,
   "devDependencies": {
     "clean-css": "^3.4.12",
