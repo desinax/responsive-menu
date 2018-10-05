@@ -38,5 +38,8 @@ jobs:
 
 notify:
   webhooks:
-    # A list of hook hashes, containing the url field
+    # desinax/dev
+    - url: https://webhooks.gitter.im/e/13afbc2d4a2babd03ba8
+
+    # desinax/responsive-menu
     - url: https://webhooks.gitter.im/e/ced07f17c6a390740978

@@ -2,7 +2,6 @@ language: node_js
 
 node_js:
     - "node"
-    - "6"
 
 
 
@@ -35,13 +34,18 @@ script:
 
 
 notifications:
-    irc: "irc.freenode.org#dbwebb"
-
     webhooks:
         urls:
+            # desinax/dev
+            - https://webhooks.gitter.im/e/cfe9d5af114f67125ae2
+
+            # desinax/responsive-menu
             - https://webhooks.gitter.im/e/43947bb1509aa94c450e
 
         # options: [always|never|change] default: always
         on_success: change
         on_failure: always
         on_start: never
+
+
+    irc: "irc.freenode.org#dbwebb"
